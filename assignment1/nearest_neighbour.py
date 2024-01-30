@@ -205,7 +205,6 @@ def error_test_k():
 
 
 if __name__ == '__main__':
-    # before submitting, make sure that the function simple_test runs without errors
     simple_test()
     error_test_sample_size()
     error_test_k()
