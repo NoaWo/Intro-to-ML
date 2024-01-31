@@ -112,13 +112,8 @@ def error_test_sample_size():
     test5 = data['test5']
     test6 = data['test6']
 
-    x_list = [train2, train3, train5, train6]
-    y_list = [2, 3, 5, 6]
-
-    x_list_test = [test2, test3, test5, test6]
     len_x_test = len(test2) + len(test3) + len(test5) + len(test6)
-    assert len_x_test == np.vstack(x_list_test).shape[0]
-    x_test, y_test = gensmallm(x_list_test, y_list, len_x_test)
+    x_test, y_test = gensmallm([test2, test3, test5, test6], [2, 3, 5, 6], len_x_test)
 
     sample_sizes = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     errors_avg = []
@@ -127,7 +122,7 @@ def error_test_sample_size():
     for sample_size in sample_sizes:
         errors = []
         for _ in range(10):
-            x_train, y_train = gensmallm(x_list, y_list, sample_size)
+            x_train, y_train = gensmallm([train2, train3, train5, train6], [2, 3, 5, 6], sample_size)
             classifier_nn = learnknn(1, x_train, y_train)
             y_test_predict = predictknn(classifier_nn, x_test)
             error = np.mean(np.vstack(y_test) != np.vstack(y_test_predict))
@@ -164,13 +159,8 @@ def error_test_k():
     test5 = data['test5']
     test6 = data['test6']
 
-    x_list = [train2, train3, train5, train6]
-    y_list = [2, 3, 5, 6]
-
-    x_list_test = [test2, test3, test5, test6]
     len_x_test = len(test2) + len(test3) + len(test5) + len(test6)
-
-    x_test, y_test = gensmallm(x_list_test, y_list, len_x_test)
+    x_test, y_test = gensmallm([test2, test3, test5, test6], [2, 3, 5, 6], len_x_test)
 
     sample_size = 200
     ks = [i for i in range(1, 12)]
@@ -180,7 +170,7 @@ def error_test_k():
     for k in ks:
         errors = []
         for _ in range(10):
-            x_train, y_train = gensmallm(x_list, y_list, sample_size)
+            x_train, y_train = gensmallm([train2, train3, train5, train6], [2, 3, 5, 6], sample_size)
             classifier_knn = learnknn(k, x_train, y_train)
             y_test_predict = predictknn(classifier_knn, x_test)
             error = np.mean(np.vstack(y_test) != np.vstack(y_test_predict))
